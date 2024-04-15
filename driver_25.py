@@ -12,3 +12,4 @@ if __name__ == "__main__":
     check_error(404, True)
     check_error(400, True)
     check_error(17, False)
+    check_error(100, False)
