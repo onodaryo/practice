@@ -8,6 +8,7 @@ def check_error(test_input, expected_result):
         print("input:"+str(test_input)+" is not correct.")
 
 
-check_error(404, True)
-check_error(400, False)
-check_error(17, False)
+if __name__ == "__main__":
+    check_error(404, True)
+    check_error(400, True)
+    check_error(17, False)
