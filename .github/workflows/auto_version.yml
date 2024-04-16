@@ -26,8 +26,8 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         with:
-          tag_name: ${{ git tag -l --sort=-v:refname | head -n 1 }}
-          release_name: Release ${{ git tag -l --sort=-v:refname | head -n 1 }}
+          tag_name: ${{ steps.creation_tag.outputs.new_tag_name }}
+          release_name: Release ${{ steps.creation_tag.outputs.new_tag_name }}
           body: |
             Changes in this Release
             - First Change
