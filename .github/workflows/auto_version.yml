@@ -26,7 +26,7 @@ jobs:
       - name: Creation tag
         run: |
           git fetch --tags
-          latest_tag_name=$(git tag -l --sort=-v:refname | head -n 1)
+          latest_tag_name=$(git tag -l --sort=-creatordate | head -n 1)
           num_0=$(echo $latest_tag_name | sed 's:\.[0-9]*\.[0-9]*::')
           num_1=$(echo $latest_tag_name | sed 's:^v[0-9]*\.::' | sed 's:\.[0-9]*::')
           num_2=$(echo $latest_tag_name | sed 's:^v[0-9]*\.[0-9]*\.::')
