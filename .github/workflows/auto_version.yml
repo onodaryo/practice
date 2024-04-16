@@ -28,8 +28,8 @@ jobs:
           git fetch --tags
           latest_tag_name=$(git tag -l --sort=-creatordate | head -n 1)
           num_0=$(echo $latest_tag_name | sed 's:\.[0-9]*\.[0-9]*::')
-          num_1=$(echo $latest_tag_name | sed 's:^v[0-9]*\.::' | sed 's:\.[0-9]*::')
-          num_2=$(echo $latest_tag_name | sed 's:^v[0-9]*\.[0-9]*\.::')
+          num_1=$(echo $latest_tag_name | sed 's:.*v[0-9]*\.::' | sed 's:\.[0-9]*::')
+          num_2=$(echo $latest_tag_name | sed 's:.*v[0-9]*\.[0-9]*\.::')
           num_2=$(expr $num_2 + 1)
           new_tag_name="test_${num_0}.${num_1}.${num_2}" 
           git config --global user.email "onoda.ryo@genetec.co.jp"
