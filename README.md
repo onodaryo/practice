@@ -14,3 +14,5 @@ GitHub_actionsの動作確認(fetchしたらtag情報が反映されるか確認
 GitHub_actionsの動作確認(5回目)
 GitHub_actionsの動作確認(6回目)
 GitHub_actions(7回目)
+GitHub_actions(8回目_タグの自動生成はできてた！！！！！)
+
