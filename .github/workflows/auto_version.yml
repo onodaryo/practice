@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
     steps:
+      - uses: actions/checkout@v4
       - name: Creation tag
         run: |
-          pwd
           latest_tag_name=$(git tag -l --sort=-v:refname | head -n 1)
           num_0=$(echo $latest_tag_name | sed 's:\.[0-9]*\.[0-9]*::')
           num_1=$(echo $latest_tag_name | sed 's:^v[0-9]*\.::' | sed 's:\.[0-9]*::')
