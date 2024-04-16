@@ -6,4 +6,5 @@ GitHub_actionsが動くようにします。
 GitHub_actionsの動作を確認します。
 GitHub_actionsの動作確認(2回目)
 GitHub_actionsの動作(3回目)
+GitHub_actionsの動作確認(カレントディレクトリ特定編)
 
