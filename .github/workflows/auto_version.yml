@@ -24,6 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Creation tag
+        id: creation_tag
         run: |
           git fetch --tags
           latest_tag_name=$(git tag -l --sort=-creatordate | head -n 1)
@@ -36,6 +37,7 @@ jobs:
           git config --global user.name "ryoonoda"
           git tag -a $new_tag_name -m "attach ${new_tag_name} tag"
           git push origin $new_tag_name
+          echo "::set-output name=new_tag_name::$new_tag_name"
           
       - name: Creation release note
         id: create_release
