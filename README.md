@@ -1,5 +1,5 @@
 # Gitに関する練習課題
-ここは本文です。
+ここは本文です。  
 PUSHできないことの確認
 画像を綺麗に表示する努力をします。
 GitHub_actionsが動くようにします。
@@ -17,5 +17,5 @@ GitHub_actions(7回目)
 GitHub_actions(8回目_タグの自動生成はできてた！！！！！)
 GitHub_actions(9回目)
 GitHub_actions(10)
-Github_Actions(11)
-
+GitHub_actions(11)
+GitHub_acti(12)
