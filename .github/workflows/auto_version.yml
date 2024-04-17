@@ -43,7 +43,7 @@ jobs:
       - name: Get release note body
         id: release_note_body
         run: |
-          release_body=$(curl -X POST -H 'Accept: application/vnd.github.v3+json' -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/${{ github.repository }}/releases/generate-notes -d '{"tag_name":"${{ steps.creation_tag.outputs.new_tag_name }}", "previous_tag_name":"${{ steps.creation_tag.outputs.pre_latest_tag_name }}"}' | jq .body | sed 's/"//g')
+          release_body=$(curl -X POST -H 'Accept: application/vnd.github.v3+json' -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/${{ github.repository }}/releases/generate-notes -d '{"tag_name":"${{ steps.creation_tag.outputs.new_tag_name }}", "previous_tag_name":"${{ steps.creation_tag.outputs.pre_latest_tag_name }}"}' | jq .body)
           release_body=$(echo $release_body)
           echo "::set-output name=release_note_body::$release_body"
 
