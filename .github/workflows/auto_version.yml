@@ -1,0 +1,56 @@
+name: CI_for_version_tag
+
+on:
+  pull_request:
+    branches: 
+      - main
+    types: [closed]
+
+jobs:
+  update_version:
+    permissions:
+      actions: write
+      checks: write
+      contents: write
+      deployments: write
+      issues: write
+      packages: write
+      pull-requests: write
+      repository-projects: write
+      security-events: write
+      statuses: write
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Creation tag
+        id: creation_tag
+        run: |
+          git fetch --tags
+          pre_latest_tag_name=$(git tag -l --sort=-creatordate | head -n 1)
+          num_0=$(echo $pre_latest_tag_name | sed 's:^.*v::' | sed 's:\.[0-9]*\.[0-9]*::')
+          num_1=$(echo $pre_latest_tag_name | sed 's:^.*v[0-9]*\.::' | sed 's:\.[0-9]*::')
+          num_2=$(echo $pre_latest_tag_name | sed 's:^.*v[0-9]*\.[0-9]*\.::')
+          num_2=$(expr $num_2 + 1)
+          new_tag_name="v${num_0}.${num_1}.${num_2}" 
+          git config --global user.email "onoda.ryo@genetec.co.jp"
+          git config --global user.name "ryoonoda"
+          git tag -a $new_tag_name -m "attach ${new_tag_name} tag"
+          git push origin $new_tag_name
+          echo "::set-output name=pre_latest_tag_name::$pre_latest_tag_name"
+          echo "::set-output name=new_tag_name::$new_tag_name"
+
+      - name: Get release note body
+        id: release_note_body
+        run: |
+          release_body=$(curl -X POST -H 'Accept: application/vnd.github.v3+json' -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/${{ github.repository }}/releases/generate-notes -d '{"tag_name":"${{ steps.creation_tag.outputs.new_tag_name }}", "previous_tag_name":"${{ steps.creation_tag.outputs.pre_latest_tag_name }}"}' | jq .body | sed 's/"//g')
+          release_body=$(echo $release_body)
+          echo "::set-output name=release_note_body::$release_body"
+
+      - name: Creation release note
+        id: create_release
+        run: |
+          curl -X POST \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          -d "{ \"tag_name\": \"${{ steps.creation_tag.outputs.new_tag_name }}\", \"name\": \"${{ steps.creation_tag.outputs.new_tag_name }}\", \"body\": \"${{ steps.release_note_body.outputs.release_note_body }}\"}" \
+          https://api.github.com/repos/${{ github.repository }}/releases
