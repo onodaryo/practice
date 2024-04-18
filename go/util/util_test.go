@@ -11,7 +11,6 @@ func TestIsLeapYear(t *testing.T) {
 		args args
 		want bool
 	}{
-		// TODO: Add test cases.
 		{name: "4で割り切れる, 100で割り切れる, 400で割り切れるtest", args: args{year: 2000}, want: true},
 		{name: "4で割り切れる, 100で割り切れる, 400で割り切れるの境界値(-1)test", args: args{year: 1999}, want: false},
 		{name: "4で割り切れる, 100で割り切れる, 400で割り切れるの境界値(+1)test", args: args{year: 2001}, want: false},
